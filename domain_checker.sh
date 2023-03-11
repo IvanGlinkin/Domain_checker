@@ -13,8 +13,8 @@
 ############################################################################
 
 # Variables
-version="0.002"
-releasedate="March 10, 2023"
+version="0.003"
+releasedate="March 11, 2023"
 
 # Colors
 RED=`echo -n '\e[00;31m'`;
@@ -82,7 +82,8 @@ echo -e "$GREEN_BOLD[ + ]$CLEAR_FONT IP address is$GREEN_BOLD $ip$CLEAR_FONT"
 echo -e "$BLUE[ > ]$CLEAR_FONT Checking for subdomains..."
 
 # Get subdomains of the domain
-subdomains=$(curl -s "https://crt.sh/?q=%25.$domain&output=json" | jq -r '.[].name_value' | sed 's/\*\.//g' | uniq | sort -u)
+#subdomains=$(curl -s "https://crt.sh/?q=%25.$domain&output=json" | jq -r '.[].name_value' | sed 's/\*\.//g' | uniq | sort -u)
+subdomains=$(curl -s "http://web.archive.org/cdx/search/cdx?url=*.$domain/*&output=json&fl=original&collapse=urlkey" | awk -F ":" '{print $2}' | cut -d "/" -f 3 | cut -d "\"" -f 1 | uniq | sort -u | grep -v -e '^$')
 readarray -t subdomains_array <<< "$subdomains"
 
 for subdomain in "${subdomains_array[@]}"; do
