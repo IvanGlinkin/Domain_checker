@@ -13,7 +13,7 @@
 ############################################################################
 
 # Variables
-version="0.001"
+version="0.002"
 releasedate="March 10, 2023"
 
 # Colors
@@ -39,13 +39,19 @@ echo -e "$ORANGE[ ! ] Trial/Demo version for the new EASM system$CLEAR_FONT$GREE
 echo -e "";
 
 # Check if need apps exist
-apps=("jq geoiplookup nmap host")
+apps=("jq nmap host")
 for app in $apps; do
  	if ! which $app &> /dev/null; then
 		echo -e "$RED_BOLD[ - ]$CLEAR_FONT Error: "$app" app is not installed. Execute \"sudo apt-get install $app\""
 		exit 1
 	fi
 done
+
+# Fixed. Thanks t.me/@VladimirM89 and GitHub/@MustaphaDouch 
+if ! which geoiplookup &> /dev/null; then
+echo -e "$RED_BOLD[ - ]$CLEAR_FONT Error: "geoiplookup" app is not installed. Execute \"sudo apt-get install geoip-bin\""
+exit 1
+fi
 
 # Function - Check if the domain is valid
 function is_valid_domain() {
