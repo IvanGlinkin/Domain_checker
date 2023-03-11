@@ -83,7 +83,7 @@ echo -e "$BLUE[ > ]$CLEAR_FONT Checking for subdomains..."
 
 # Get subdomains of the domain
 #subdomains=$(curl -s "https://crt.sh/?q=%25.$domain&output=json" | jq -r '.[].name_value' | sed 's/\*\.//g' | uniq | sort -u)
-subdomains=$(curl -s "https://api.hackertarget.com/hostsearch/?q=$domain" | cut -d "," -f 1 | uniq | sort -u)
+subdomains=$(curl -s "http://web.archive.org/cdx/search/cdx?url=*.$domain/*&output=json&fl=original&collapse=urlkey" | awk -F ":" '{print $2}' | cut -d "/" -f 3 | cut -d "\"" -f 1 | uniq | sort -u | grep -v -e '^$')
 readarray -t subdomains_array <<< "$subdomains"
 
 for subdomain in "${subdomains_array[@]}"; do
