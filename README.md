@@ -14,6 +14,13 @@ bash ./domain_checker.sh
 > Enter the domain you want to enumerate
 ```
 
+This will work beatifully on Kali but an ultimately universal way is through Docker. Just run 
+
+```
+docker build -t domain_checker-image .
+docker run -it --rm domain_checker-image
+```
+
 Video example:
 --------------
 ![](https://github.com/IvanGlinkin/media_support/blob/main/Domain_checker_Video.gif?raw=true)
