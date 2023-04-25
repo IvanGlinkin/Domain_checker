@@ -1,6 +1,6 @@
-FROM ubuntu:latest
+FROM alpine:latest
 
-RUN apt-get update && apt-get install -y nmap host geoip-bin curl
+RUN apk update && apk add --no-cache bash nmap bind-tools geoip curl
 COPY . . 
 RUN chmod 755 ./domain_checker.sh
 ENTRYPOINT ["./domain_checker.sh"]
