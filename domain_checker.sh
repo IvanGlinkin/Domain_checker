@@ -39,7 +39,7 @@ echo -e "$ORANGE[ ! ] Trial/Demo version for the new EASM system$CLEAR_FONT$GREE
 echo -e "";
 
 # Check if need apps exist
-apps=("jq nmap host")
+apps=("nmap host")
 for app in $apps; do
  	if ! which $app &> /dev/null; then
 		echo -e "$RED_BOLD[ - ]$CLEAR_FONT Error: "$app" app is not installed. Execute \"sudo apt-get install $app\""
